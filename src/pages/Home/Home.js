@@ -39,7 +39,7 @@ export default function Home() {
                     <h3>Seneste indlæg</h3>
 
                     <div className="home__content__posts">
-                        { posts?.slice(posts.length - 4, posts.length -1).map(post => {
+                        { posts?.slice(posts.length - 3, posts.length).map(post => {
                             // ISO format
                             // Instance new class so it's an object and pass ISO string.
                             var d = new Date(post.published_at);
