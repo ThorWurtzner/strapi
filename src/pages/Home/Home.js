@@ -11,13 +11,10 @@ export default function Home() {
     var [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:1337/heading")
+        axios.get("https://strapi-blog-db.herokuapp.com/heading")
             .then(response => setHeading(response.data.Heading))
 
-        axios.get("http://localhost:1337/hero")
-            .then(response => setHero("http://localhost:1337" + response.data.Hero.url))
-
-        axios.get("http://localhost:1337/posts")
+        axios.get("https://strapi-blog-db.herokuapp.com/posts")
             .then(response => {
                 setPosts(response.data);
             })
@@ -26,23 +23,23 @@ export default function Home() {
     return (
         <>
             <div className="home">
-                <header className="home__header" style={{backgroundImage: `url(${hero})`}}>
+                <header className="home__header">
                     <h1 className="home__header__heading">
                         { heading }
                     </h1>
 
+                </header>
+
+                <main className="home__content">
                     <nav>
                         <Link to="/" style={{color: "#FFA133"}}>Home</Link>
                         <Link to="/posts">Indlæg</Link>
                         <Link to="/gallery">Galleri</Link>
                     </nav>
-                </header>
-
-                <main className="home__content">
                     <h3>Seneste indlæg</h3>
 
                     <div className="home__content__posts">
-                        { posts?.slice(0, 3).map(post => {
+                        { posts?.slice(posts.length - 4, posts.length -1).map(post => {
                             // ISO format
                             // Instance new class so it's an object and pass ISO string.
                             var d = new Date(post.published_at);

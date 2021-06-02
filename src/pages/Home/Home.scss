@@ -1,15 +1,15 @@
 
 .home {
-    background-color: #252525;
-    min-height: calc(100vh);
+    min-height: 100vh;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .home__header {
     height: 40vh;
-    // background-image: url("./833534.png");
-    background-position: 0 20%;
-    background-repeat: no-repeat;
-    background-size: cover;
 
     display: flex;
     flex-direction: column;
@@ -21,36 +21,46 @@
     &__heading {
         background-color: rgba(0, 0, 0, 0.7);
         padding: 20px 40px;
-        font-size: clamp(16px, 3vw, 40px);
+        font-size: clamp(20px, 3vw, 40px);
         color: #fff;
         justify-self: center;
+        border-radius: 20px;
     }
 
+}
+
+.home__content {
+    padding: 0 3em;
+    padding-top: 2em;
+    background-color: #252525;
+    position: relative;
+    
     nav {
         position: absolute;
-        bottom: 0;
+        width: 350px;
+        height: 50px;
+        top: -50px;
+        left: -webkit-calc(50% - (350px / 2));
+        left: calc(50% - (350px / 2));
+
         display: flex;
         justify-content: space-evenly;
-        gap: 40px;
-        background-color: rgba(0, 0, 0, 0.7);
-        padding: 10px 40px;
-
+        align-items: center;
+        background-color: #252525;
+        border-radius: 10px 10px 0 0;
+    
         a {
             font-size: clamp(16px, 3vw ,1.3rem);
             color: #fff;
             text-decoration: none;
             transition: color .2s;
-
+            font-family: 'Rowdies', cursive;
+    
             &:hover {
                 color: #FFA133;
             }
         }
     }
-}
-
-.home__content {
-    padding: 0 3em;
-    margin-top: 2em;
 
     h3 {
         font-family: 'Rowdies', cursive;
@@ -63,6 +73,11 @@
         min-height: 300px;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        // display: flex;
+        // flex-direction: row-reverse;
+        // flex-wrap: wrap;
+        // min-width: 400px;
+        // width: 33%;
         gap: 20px;
         padding-bottom: 2em;
     }
