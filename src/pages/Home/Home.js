@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Home.scss";
 import axios from "axios";
 import { Link } from "@reach/router";
@@ -59,7 +59,7 @@ export default function Home() {
                             // Instance new class so it's an object and pass ISO string.
                             var d = new Date(post.published_at);
                             // Use method to convert to UTC
-                            var d = d.toUTCString();
+                                d = d.toUTCString();
                             // Remove unwanted hour and second from string
                             d = d.slice(0, 16)
 

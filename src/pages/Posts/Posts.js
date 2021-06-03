@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./Posts.scss";
 import axios from "axios";
-import { Link, Router } from "@reach/router";
+import { Link } from "@reach/router";
 import Post from "../../components/Post/Post";
 
 export default function Posts(props) {
@@ -48,7 +48,7 @@ export default function Posts(props) {
                             // Instance new class so it's an object and pass ISO string.
                             var d = new Date(post.published_at);
                             // Use method to convert to UTC
-                            var d = d.toUTCString();
+                            d = d.toUTCString();
                             // Remove unwanted hour and second from string
                             d = d.slice(0, 16)
 

@@ -17,7 +17,7 @@ export default function Post({date, title, text, id, linkText}) {
 
     var d = new Date(date);
     // Use method to convert to UTC
-    var d = d.toUTCString();
+    d = d.toUTCString();
     // Remove unwanted hour and second from string
     d = d.slice(0, 16)
     // date = d;

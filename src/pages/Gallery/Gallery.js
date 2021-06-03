@@ -38,7 +38,7 @@ export default function Gallery(props) {
                 {
                     gallery?.map(img => {
                         return(
-                            <img src={img.image.url} key={img.id} />
+                            <img src={img.image.url} alt="" key={img.id} />
                         )
                     })
                 }
