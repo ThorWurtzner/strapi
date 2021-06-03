@@ -35,10 +35,11 @@
                 color: #fff;
                 text-decoration: none;
                 transition: color .2s;
-                font-family: 'Rowdies', cursive;
-        
+                font-family: 'Roboto', sans-serif;
+                transition: filter .2s;
+
                 &:hover {
-                    color: #FFA133;
+                    filter: brightness(1.3);
                 }
             }
         }

@@ -7,25 +7,28 @@ import Gallery from "./pages/Gallery/Gallery";
 import Posts from "./pages/Posts/Posts";
 import SimpleReactLightbox from 'simple-react-lightbox';
 
-function App() {
 
+function App() {
   var [hero, setHero] = useState('');
 
   useEffect(() => {
       axios.get("https://strapi-blog-db.herokuapp.com/hero")
         .then(response => setHero(response.data.Hero.url))
-  }, [setHero])
 
+      // axios.get("http://localhost:1337/site-color")
+      //   .then(response => setColor(response.data.color))
+  }, [setHero])
+  
   return (
     <div className="app" style={{backgroundImage: `url(${hero})`}}>
-      <SimpleReactLightbox>
-        <Router>
-          <Home path="/" />
-          <Posts path="/posts" />
-          <Posts path="/posts/:id" />
-          <Gallery path="gallery" />
-        </Router>
-      </SimpleReactLightbox>
+        <SimpleReactLightbox>
+          <Router>
+            <Home path="/" />
+            <Posts path="/posts" />
+            <Posts path="/posts/:id" />
+            <Gallery path="gallery" />
+          </Router>
+        </SimpleReactLightbox>
     </div>
   )
 }

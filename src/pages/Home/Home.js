@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import "./Home.scss";
 import axios from "axios";
 import { Link } from "@reach/router";
@@ -7,8 +7,9 @@ import HomePost from "../../components/HomePost/HomePost";
 export default function Home() {
 
     var [heading, setHeading] = useState('');
-    var [hero, setHero] = useState('');
     var [posts, setPosts] = useState([]);
+    var [logo, setLogo] = useState([]);
+    var [color, setColor] = useState('');
 
     useEffect(() => {
         axios.get("https://strapi-blog-db.herokuapp.com/heading")
@@ -18,21 +19,35 @@ export default function Home() {
             .then(response => {
                 setPosts(response.data);
             })
+
+        axios.get("https://strapi-blog-db.herokuapp.com/logo")
+            .then(response => {
+                setLogo(response.data.logo.url);
+            })
+
+        axios.get("https://strapi-blog-db.herokuapp.com/site-color")
+            .then(response => {
+                setColor(response.data.color);
+            })
     }, [])
+
+    if (color === 'blue') color = "#89CFF0"
+    if (color === 'orange') color = "#FFA133"
+    if (color === 'green') color = "#3CB371"
 
     return (
         <>
             <div className="home">
                 <header className="home__header">
-                    <h1 className="home__header__heading">
+                    <img className="home__header__logo" src={logo} alt="logo" />
+                    <h1 className="home__header__heading" style={{color: color}}>
                         { heading }
                     </h1>
-
                 </header>
 
                 <main className="home__content">
                     <nav>
-                        <Link to="/" style={{color: "#FFA133"}}>Home</Link>
+                        <Link to="/" style={{color: color}}>Home</Link>
                         <Link to="/posts">Indlæg</Link>
                         <Link to="/gallery">Galleri</Link>
                     </nav>
