@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 img {
     display: block;
     width: 100%;
@@ -15,4 +19,60 @@ img {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    // overflow: hidden;
+}
+
+.loginBtn {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    border: 3px solid rgb(0, 0, 0, 0.7);
+    background-color: #eee;
+    cursor: pointer;
+    z-index: 2;
+
+    i {
+        font-size: 22px;
+    }
+}
+
+.dropdown {
+    top: 40px;
+    right: 0;
+    position: absolute;
+    height: 350px;
+    width: 300px;
+    background-color: #eee;
+    border-radius: 40px 0 0 40px;
+    transform: translateX(-100%);
+    transition: 0.5s;
+    gap: 40px;
+    padding-top: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid rgb(0, 0, 0, 0.7);
+}
+
+.iconWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+
+    i {
+        font-size: 24px;
+        background-color: rgb(231, 231, 231);
+        padding: 10px;
+        border-radius: 50%;
+        color: #252525;
+    }
+}
+
+.login__error {
+    border: 1px solid rgb(0, 0, 0, 0.7);
 }
