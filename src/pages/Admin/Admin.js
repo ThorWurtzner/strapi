@@ -17,7 +17,7 @@ export default function Admin({token}) {
     }
 
     function post(data) {
-        axios.post("http://localhost:1337/posts", {
+        axios.post("https://strapi-blog-db.herokuapp.com/posts", {
                 Title: data.title,
                 Text: data.text
             },
@@ -27,7 +27,10 @@ export default function Admin({token}) {
                 }
             }
         )
-        .then(response => console.log(response))
+        .then(response => {
+            alert("Post has been created");
+            console.log(response);
+        })
     }
     
 

@@ -8,6 +8,7 @@ export default function Posts(props) {
     var [posts, setPosts] = useState([]);
     var [post, setPost] = useState({});
     var [color, setColor] = useState('');
+    var [mode, setMode] = useState('');
     
     useEffect(() => {
         if (props.id) {
@@ -27,7 +28,25 @@ export default function Posts(props) {
                 .then(response => {
                     setColor(response.data.color);
                 })
+
+        axios.get("https://strapi-blog-db.herokuapp.com/color-mode")
+            .then(response => {
+                setMode(response.data.mode);
+            })
     }, [props.id, setPosts, setColor])
+
+    var bgColor;
+    var textColor;
+    var pColor;
+
+    if (mode === "dark") {
+        bgColor = "#252525";
+        textColor = "#fff";
+        pColor = "rgb(146, 146, 146)";
+    } else if (mode === "light") {
+        bgColor = "#ddd";
+        textColor = "#000";
+    } 
 
     if (color === 'blue') color = "#89CFF0"
     if (color === 'orange') color = "#FFA133"
@@ -35,11 +54,11 @@ export default function Posts(props) {
 
     return (
         <div className="posts">
-            <div className="posts__wrapper">
-                <nav>
-                    <Link to="/">Home</Link>
+            <div className="posts__wrapper" style={{backgroundColor: bgColor}}>
+                <nav style={{backgroundColor: bgColor}}>
+                    <Link to="/" style={{color: textColor}}>Home</Link>
                     <Link to="/posts" style={{color: color}}>Indlæg</Link>
-                    <Link to="/gallery">Galleri</Link>
+                    <Link to="/gallery" style={{color: textColor}}>Galleri</Link>
                 </nav>
                 <div className="posts__wrapper__inner">
                     { 
@@ -58,7 +77,7 @@ export default function Posts(props) {
                         })
                     }
                     { post && props.id ?
-                        <Post title={post.Title} text={post.Text} date={post.published_at} linkText="Go back"  /> 
+                        <Post title={post.Title} text={post.Text} date={post.published_at} linkText="Go back" dynamic={post.postZone ? post.postZone : null}  /> 
                      : null }
 
                 </div>

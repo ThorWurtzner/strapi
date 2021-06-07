@@ -10,30 +10,52 @@ export default function Home() {
     var [posts, setPosts] = useState([]);
     var [logo, setLogo] = useState([]);
     var [color, setColor] = useState('');
+    var [mode, setMode] = useState('');
 
     useEffect(() => {
-        axios.get("https://strapi-blog-db.herokuapp.com/heading")
-            .then(response => setHeading(response.data.Heading))
+        axios.get("https://strapi-blog-db.herokuapp.com/hero")
+            .then(response => {
+                console.log(response.data);
+            })
+
+        // axios.get("https://strapi-blog-db.herokuapp.com/heading")
+        //     .then(response => setHeading(response.data.Heading))
 
         axios.get("https://strapi-blog-db.herokuapp.com/posts")
             .then(response => {
                 setPosts(response.data);
             })
 
-        axios.get("https://strapi-blog-db.herokuapp.com/logo")
-            .then(response => {
-                setLogo(response.data.logo.url);
-            })
+        // axios.get("https://strapi-blog-db.herokuapp.com/logo")
+        //     .then(response => {
+        //         setLogo(response.data.logo.url);
+        //     })
 
         axios.get("https://strapi-blog-db.herokuapp.com/site-color")
             .then(response => {
                 setColor(response.data.color);
+            })
+
+        axios.get("https://strapi-blog-db.herokuapp.com/color-mode")
+            .then(response => {
+                setMode(response.data.mode);
             })
     }, [])
 
     if (color === 'blue') color = "#89CFF0"
     if (color === 'orange') color = "#FFA133"
     if (color === 'green') color = "#3CB371"
+
+    var bgColor;
+    var textColor;
+
+    if (mode === "dark") {
+        bgColor = "#252525";
+        textColor = "#fff";
+    } else if (mode === "light") {
+        bgColor = "#eee";
+        textColor = "#000";
+    } 
 
     return (
         <>
@@ -45,13 +67,13 @@ export default function Home() {
                     </h1>
                 </header>
 
-                <main className="home__content">
-                    <nav>
+                <main className="home__content" style={{backgroundColor: bgColor}}>
+                    <nav style={{backgroundColor: bgColor}}>
                         <Link to="/" style={{color: color}}>Home</Link>
-                        <Link to="/posts">Indlæg</Link>
-                        <Link to="/gallery">Galleri</Link>
+                        <Link to="/posts" style={{color: textColor}}>Indlæg</Link>
+                        <Link to="/gallery" style={{color: textColor}}>Galleri</Link>
                     </nav>
-                    <h3>Seneste indlæg</h3>
+                    <h3 style={{color: textColor}}>Seneste indlæg</h3>
 
                     <div className="home__content__posts">
                         { posts?.slice(posts.length - 3, posts.length).map(post => {

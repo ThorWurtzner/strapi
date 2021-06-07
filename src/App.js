@@ -29,7 +29,7 @@ function App() {
   var [loginError, setLoginError] = useState('');
 
   function login(data) {
-    axios.post("http://localhost:1337/auth/local", {
+    axios.post("https://strapi-blog-db.herokuapp.com/auth/local", {
       "identifier": data.email,
       "password": data.password
     })

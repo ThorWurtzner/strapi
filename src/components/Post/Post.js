@@ -4,7 +4,7 @@ import parse from "html-react-parser";
 import { Link } from "@reach/router";
 import axios from "axios";
 
-export default function Post({date, title, text, id, linkText}) {
+export default function Post({date, title, text, id, linkText, dynamic}) {
     
     var single;
     var textColor;
@@ -23,13 +23,32 @@ export default function Post({date, title, text, id, linkText}) {
     // date = d;
 
     var [color, setColor] = useState('')
+    var [mode, setMode] = useState('');
 
     useEffect(() => {
         axios.get("https://strapi-blog-db.herokuapp.com/site-color")
             .then(response => {
                 setColor(response.data.color);
             })
+
+        axios.get("https://strapi-blog-db.herokuapp.com/color-mode")
+            .then(response => {
+                setMode(response.data.mode);
+            })
     }, [])
+
+    var bgColor;
+    var textColor;
+    var pColor;
+
+    if (mode === "dark") {
+        bgColor = "#3E3E3E";
+        textColor = "#fff";
+        pColor = "rgb(146, 146, 146)";
+    } else if (mode === "light") {
+        bgColor = "#fff";
+        textColor = "#000";
+    } 
 
     if (color === 'blue') color = "#89CFF0"
     if (color === 'orange') color = "#FFA133"
@@ -37,9 +56,13 @@ export default function Post({date, title, text, id, linkText}) {
     
     return (
         <>
-            <div className="primary__post">
-                <p className="primary__post__date">{d}</p>
-                <h4 className="primary__post__title">{title}</h4>
+            <div className="primary__post" style={{backgroundColor: bgColor}}>
+                <p className="primary__post__date" style={{color: textColor}}>{d}</p>
+                {dynamic?.map(zone => {
+                    console.log(zone);
+                    return zone.__component === "post.image" ? <img src={zone.Image.url} alt=""></img> : zone.__component === "post.quote" ? <div>{zone.Quote}</div> : null;
+                })}
+                <h4 className="primary__post__title" style={{color: textColor}}>{title}</h4>
                 <p className="primary__post__text" style={{display: single, color: textColor}}>{text ? parse(text) : null}</p>
                 {
                     id ?
