@@ -11,11 +11,20 @@ export default function Home() {
     var [logo, setLogo] = useState([]);
     var [color, setColor] = useState('');
     var [mode, setMode] = useState('');
+    var [hero, setHero] = useState({});
+    var [position, setPosition] = useState("");
 
     useEffect(() => {
         axios.get("https://strapi-blog-db.herokuapp.com/hero")
             .then(response => {
                 console.log(response.data);
+                if (response.data.Logoposition === "Left") {
+                    setPosition("row-reverse");
+                }
+                if (response.data.Logoposition === "Right") {
+                    setPosition("row");
+                }
+                setHero(response.data);
             })
 
         // axios.get("https://strapi-blog-db.herokuapp.com/heading")
@@ -60,11 +69,11 @@ export default function Home() {
     return (
         <>
             <div className="home">
-                <header className="home__header">
-                    <img className="home__header__logo" src={logo} alt="logo" />
-                    <h1 className="home__header__heading" style={{color: color}}>
-                        { heading }
-                    </h1>
+                <header className="home__header" style={{flexDirection: position}}>
+                    {hero.header?.map(zone => {
+                        console.log(zone);
+                        return zone.__component === "header.header" ? <img className="home__header__logo" src={zone.Logo.url} alt="logo" /> : zone.__component === "header.heading" ? <h1 className="home__header__heading" style={{color: color}}>{zone.heading}</h1> : null;
+                    })}
                 </header>
 
                 <main className="home__content" style={{backgroundColor: bgColor}}>

@@ -60,7 +60,7 @@ export default function Post({date, title, text, id, linkText, dynamic}) {
                 <p className="primary__post__date" style={{color: textColor}}>{d}</p>
                 {dynamic?.map(zone => {
                     console.log(zone);
-                    return zone.__component === "post.image" ? <img src={zone.Image.url} alt=""></img> : zone.__component === "post.quote" ? <div>{zone.Quote}</div> : null;
+                    return zone.__component === "post.image" ? <img style={{objectFit: "cover", maxHeight: "500px"}} src={zone.Image.url} alt=""></img> : zone.__component === "post.quote" ? <div>{zone.Quote}</div> : null;
                 })}
                 <h4 className="primary__post__title" style={{color: textColor}}>{title}</h4>
                 <p className="primary__post__text" style={{display: single, color: textColor}}>{text ? parse(text) : null}</p>
